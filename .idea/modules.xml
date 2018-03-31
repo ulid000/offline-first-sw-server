@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/offline-first-sw-server.iml" filepath="$PROJECT_DIR$/offline-first-sw-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/offline-first-sw-server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/offline-first-sw-server_main.iml" group="offline-first-sw-server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/offline-first-sw-server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/offline-first-sw-server_test.iml" group="offline-first-sw-server" />
+    </modules>
+  </component>
+</project>
