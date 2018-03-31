@@ -1,6 +1,8 @@
 import groovy.json.JsonOutput
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.StaticHandler
+import io.vertx.ext.web.impl.Utils
+
 import java.text.SimpleDateFormat
 
 def router = Router.router(vertx)
@@ -20,10 +22,28 @@ router.route("/offline/*").handler(StaticHandler.create()
 
 router.route("/message").handler({ routingContext ->
 
+    def request = routingContext.request()
+    def ifModifiedSince = request.headers().get("if-modified-since")
+
     def response = routingContext.response()
     response.setChunked(true)
     response.putHeader("content-type", "application/json")
     response.putHeader("Last-Modified", format.format(lastUpdate))
+    response.putHeader("Cache-Control", "no-cache, must-revalidate, max-age=0")
+
+    if (ifModifiedSince != null) {
+        Date ifModifiedSinceDate = format.parse(ifModifiedSince);
+        // only compare seconds because header doesn't include millis
+        ifModifiedSinceSeconds = Utils.secondsFactor(ifModifiedSinceDate.getTime())
+        lastUpdateSeconds = Utils.secondsFactor(lastUpdate.getTime())
+
+        if (ifModifiedSinceSeconds >= lastUpdateSeconds) {
+            response.setStatusCode(304)
+            response.end()
+            return
+        }
+    }
+
     response.write(JsonOutput.toJson(
             [
                     message: 'Hello ' + counter,
@@ -41,3 +61,4 @@ router.route("/message/increment").handler( {routingContext ->
 vertx.createHttpServer().requestHandler(router.&accept).listen(8080)
 
 println("Server is started")
+
