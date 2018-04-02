@@ -27,7 +27,7 @@ router.route("/message").handler({ routingContext ->
 
     def response = routingContext.response()
     response.setChunked(true)
-    response.putHeader("content-type", "application/json")
+    response.putHeader("Content-Type", "application/json")
     response.putHeader("Last-Modified", format.format(lastUpdate))
     response.putHeader("Cache-Control", "no-cache, must-revalidate, max-age=0")
 
