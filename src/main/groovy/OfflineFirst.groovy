@@ -13,10 +13,17 @@ format.setTimeZone(TimeZone.getTimeZone("GMT"))
 def counter = 0
 def lastUpdate = new Date()
 
-router.route("/offline/*").handler(StaticHandler.create()
+router.route("/offline-first-sw/*").handler(StaticHandler.create()
         .setCachingEnabled(false)
         .setAllowRootFileSystemAccess(true)
         .setWebRoot("../offline-first-sw/dist")
+        .setDirectoryListing(true)
+)
+
+router.route("/offline-first-pouchdb/*").handler(StaticHandler.create()
+        .setCachingEnabled(false)
+        .setAllowRootFileSystemAccess(true)
+        .setWebRoot("../offline-first-pouchdb/dist")
         .setDirectoryListing(true)
 )
 

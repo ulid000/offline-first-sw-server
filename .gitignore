@@ -32,3 +32,4 @@ gradle/wrapper/gradle-wrapper.properties
 .idea/**/gradle.xml
 .idea/**/libraries
 *.iml
+.vertx/
